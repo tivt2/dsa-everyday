@@ -1,5 +1,5 @@
 export class Stack<T> {
-    private data: Array<T> = new Array(8)
+    public data: Array<T> = new Array(8)
 
     push(input: T): void {
         this.data.push(input)

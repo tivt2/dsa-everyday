@@ -1,18 +1,18 @@
 {
-  "name": "dsa-everyday",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsc && node ./dist/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@types/node": "^20.14.9",
-    "typescript": "^5.5.3",
-    "vitest": "^1.6.0"
-  }
+    "name": "dsa-everyday",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "npx vitest",
+        "dev": "npx tsc && node ./dist/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "@types/node": "^20.14.9",
+        "typescript": "^5.5.3",
+        "vitest": "^1.6.0"
+    }
 }
