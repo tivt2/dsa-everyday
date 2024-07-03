@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "npx vitest",
-        "dev": "npx tsc && node ./dist/index.js"
+        "test": "vitest",
+        "dev": "tsc && node ./dist/index.js"
     },
     "keywords": [],
     "author": "",
