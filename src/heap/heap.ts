@@ -1,11 +1,11 @@
 // compare function works as return true if a should go up, false if b should go up
-export type heap_comp_fn = <T>(a: T, b: T) => boolean
+export type heap_comp_fn<T> = (a: T, b: T) => boolean
 
 export class Heap<T> {
     public data: Array<T | undefined> = new Array()
     public len: number = 0
 
-    constructor(private compare_fn: heap_comp_fn) {}
+    constructor(private compare_fn: heap_comp_fn<T>) {}
 
     get length(): number {
         return this.len
@@ -36,7 +36,7 @@ export class Heap<T> {
         return this.data[0]
     }
 
-    static heapfy<T>(compare_fn: heap_comp_fn, data: T[]): Heap<T> {
+    static heapfy<T>(compare_fn: heap_comp_fn<T>, data: T[]): Heap<T> {
         const heap = new Heap<T>(compare_fn)
         for (const d of data) {
             heap.push(d)
@@ -86,8 +86,10 @@ export class Heap<T> {
         const right_child = this.data[right_idx] as T
 
         if (this.compare_fn(left_child, right_child)) {
-            this.swap(left_idx, idx)
-            this.heapfy_down(left_idx)
+            if (this.compare_fn(left_child, cur)) {
+                this.swap(left_idx, idx)
+                this.heapfy_down(left_idx)
+            }
         } else if (this.compare_fn(right_child, cur)) {
             this.swap(right_idx, idx)
             this.heapfy_down(right_idx)
@@ -103,6 +105,6 @@ export class Heap<T> {
     }
 
     private right_child(idx: number): number {
-        return idx * 2 + 1
+        return idx * 2 + 2
     }
 }
