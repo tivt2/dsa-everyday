@@ -6,11 +6,6 @@ type Node<T> = {
     right: Node<T> | undefined
 }
 
-type NodeFind<T> = {
-    parent: Node<T> | undefined
-    node: Node<T> | undefined
-}
-
 export class BinaryTree<T> {
     public root: Node<T> | undefined = undefined
 
@@ -39,6 +34,58 @@ export class BinaryTree<T> {
         if (found.node == undefined) {
             return false
         }
+        return true
+    }
+
+    delete(data: T): boolean {
+        const { parent, node } = this.find_rec(undefined, this.root, data)
+        if (node == undefined) {
+            return false
+        }
+
+        if (node.left == undefined && node.right == undefined) {
+            if (parent == undefined) {
+                this.root = undefined
+            } else if (parent.right == node) {
+                parent.right = undefined
+            } else {
+                parent.left = undefined
+            }
+            return true
+        }
+
+        if (node.left == undefined) {
+            if (parent == undefined) {
+                this.root = node.right
+            } else if (parent.right == node) {
+                parent.right = node.right
+            } else {
+                parent.left = node.right
+            }
+            return true
+        } else if (node.right == undefined) {
+            if (parent == undefined) {
+                this.root = node.left
+            } else if (parent.right == node) {
+                parent.right = node.left
+            } else {
+                parent.left = node.left
+            }
+            return true
+        }
+
+        const { parent: big_parent, node: big_node } = this.get_biggest(
+            node,
+            node.left
+        )
+        node.val = big_node.val
+        if (node.left == big_node) {
+            node.left = big_node.left
+            big_node.left = undefined
+        } else {
+            big_parent.right = undefined
+        }
+
         return true
     }
 
@@ -79,7 +126,7 @@ export class BinaryTree<T> {
         parent: Node<T> | undefined,
         cur: Node<T> | undefined,
         data: T
-    ): NodeFind<T> {
+    ): { parent?: Node<T>; node?: Node<T> } {
         if (cur == undefined) {
             return { parent, node: cur }
         } else if (cur.val == data) {
@@ -121,7 +168,10 @@ export class BinaryTree<T> {
         return acc
     }
 
-    private get_biggest(parent: Node<T>, node: Node<T>): NodeFind<T> {
+    private get_biggest(
+        parent: Node<T>,
+        node: Node<T>
+    ): { parent: Node<T>; node: Node<T> } {
         if (node.right == undefined) {
             return { parent, node }
         }

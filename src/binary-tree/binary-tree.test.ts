@@ -40,6 +40,19 @@ describe("binary-tree structure", () => {
         expect(binary_tree.find(42)).toEqual(false)
     })
 
+    test("delete()", () => {
+        const input = [3, 4, 1, 2, 5]
+        for (const data of input) {
+            binary_tree.insert(data)
+        }
+
+        expect(binary_tree.find(3)).toEqual(true)
+        expect(binary_tree.find(4)).toEqual(true)
+        expect(binary_tree.find(1)).toEqual(true)
+        expect(binary_tree.find(2)).toEqual(true)
+        expect(binary_tree.find(5)).toEqual(true)
+    })
+
     test("dfs()", () => {
         const input = [3, 4, 1, 2, 5]
         for (const data of input) {
@@ -56,5 +69,23 @@ describe("binary-tree structure", () => {
         }
 
         expect(binary_tree.bfs()).toEqual([3, 1, 4, 2, 5])
+    })
+
+    test("delete()", () => {
+        const input = [3, 4, 1, 2, 5]
+        for (const data of input) {
+            binary_tree.insert(data)
+        }
+
+        expect(binary_tree.delete(3)).toEqual(true)
+        expect(binary_tree.bfs()).toEqual([2, 1, 4, 5])
+        expect(binary_tree.delete(4)).toEqual(true)
+        expect(binary_tree.bfs()).toEqual([2, 1, 5])
+        expect(binary_tree.delete(2)).toEqual(true)
+        expect(binary_tree.bfs()).toEqual([1, 5])
+        expect(binary_tree.delete(1)).toEqual(true)
+        expect(binary_tree.bfs()).toEqual([5])
+        expect(binary_tree.delete(5)).toEqual(true)
+        expect(binary_tree.bfs()).toEqual([])
     })
 })
